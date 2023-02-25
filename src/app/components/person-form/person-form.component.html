@@ -1,0 +1,39 @@
+<div class="card">
+  <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+
+    <div class="p-grid">
+      <div class="p-col p-field p-grid p-m-4 p-p-4">
+        <label for="id" class="p-col-fixed" style="width:100px">Id</label>
+        <div class="p-col">
+          <input id="id" type="text" formControlName="id" pInputText required autofocus>
+        </div>
+      </div>
+
+      <div class="p-col p-field p-grid p-m-4 p-p-4">
+        <label for="firstName" class="p-col-fixed" style="width:100px">Firstname</label>
+        <div class="p-col">
+          <input id="firstName" type="text" formControlName="firstName" pInputText required autofocus>
+        </div>
+      </div>
+
+      <div class="p-col p-field p-grid p-m-4 p-p-4">
+        <label for="lastName" class="p-col-fixed" style="width:100px">lastname</label>
+        <div class="p-col">
+          <input id="lastName" type="text" formControlName="lastName" pInputText required autofocus>
+        </div>
+      </div>
+
+      <div class="p-col p-field p-grid p-m-4 p-p-4">
+        <label for="email" class="p-col-fixed" style="width:100px">Email</label>
+        <div class="p-col">
+          <input id="email" formControlName="email" type="text" pInputText required autofocus>
+        </div>
+      </div>
+    </div>
+
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" type="submit"
+      [disabled]="!personForm.valid"></button>
+
+  </form>
+</div>

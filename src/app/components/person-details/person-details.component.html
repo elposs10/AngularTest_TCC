@@ -1,0 +1,14 @@
+<p-panel>
+  <p-header>
+    Person details
+  </p-header>
+  <div class="p-d-flex" *ngIf="person">
+    <div class="p-m-4">ID: {{person.id}}</div>
+    <div class="p-m-4">Firstname: {{person.firstName}}</div>
+    <div class="p-m-4">Lastname: {{person.lastName}}</div>
+    <div class="p-m-4">Email: {{person.email}}</div>
+  </div>
+  <p-footer>
+    <a [routerLink]="goBackUrl">Go back</a>
+  </p-footer>
+</p-panel>

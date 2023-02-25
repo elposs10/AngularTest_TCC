@@ -1,0 +1,50 @@
+<p-toast></p-toast>
+
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+        (click)="openCreateModal()"></button>
+    </ng-template>
+  </p-toolbar>
+  
+  <!--Table-->
+  <p-table #dt [value]="persons" [(selection)]="selectedPerson" [rows]="10" [paginator]="true" dataKey="id"
+    [globalFilterFields]="['person.id', 'person.firstName', 'person.lastName', 'person.email']" responsiveLayout="scroll"
+    [rowHover]="true" selectionMode="single" (onRowSelect)="onRowSelect($event)"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+          <h5 class="m-0">Manage Persons</h5>
+      </div>
+  </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id"> ID <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="firstName"> Firstname <p-sortIcon field="firstName"></p-sortIcon></th>
+        <th pSortableColumn="lastName"> Lastname <p-sortIcon field="lastName"></p-sortIcon></th>
+        <th pSortableColumn="email"> Email <p-sortIcon field="email"></p-sortIcon></th>
+        <th> Actions </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-person>
+      <tr [pSelectableRow]="person">
+        <td>{{person.id}}</td>
+        <td>{{person.firstName}}</td>
+        <td>{{person.lastName}}</td>
+        <td>{{person.email}}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+            (click)="openEditModal(person)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+            (click)="deleteCountry(person)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+          In total there are {{persons ? persons.length : 0 }} users.
+      </div>
+  </ng-template>
+  </p-table>
+</div>
