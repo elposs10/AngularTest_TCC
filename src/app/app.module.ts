@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // PrimeNG imports
 import {TableModule} from 'primeng/table';
 import {CardModule} from 'primeng/card';
@@ -26,6 +26,7 @@ import { PersonsListComponent } from './components/persons-list/persons-list.com
 import { PersonDetailsComponent } from './components/person-details/person-details.component';
 import { PersonFormComponent } from './components/person-form/person-form.component';
 import { SearchPipe } from './services/search.pipe';
+import { SearchFilterPipe } from './search-filter.pipe';
 
 const mockModule = environment.mockApi ? [MockModule] : [];
 
@@ -35,13 +36,15 @@ const mockModule = environment.mockApi ? [MockModule] : [];
     PersonsListComponent,
     PersonDetailsComponent,
     PersonFormComponent,
-    SearchPipe
+    SearchPipe,
+    SearchFilterPipe
   ],
   imports: [
     // Config
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     ...mockModule,

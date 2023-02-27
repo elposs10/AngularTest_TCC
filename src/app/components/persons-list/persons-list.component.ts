@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Person } from 'src/app/model/person';
 import { PersonService } from 'src/app/services/person.service';
 import { PersonFormComponent } from '../person-form/person-form.component';
-import {MessageService, PrimeNGConfig} from 'primeng/api';
-import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-persons-list',
@@ -14,9 +14,10 @@ import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 export class PersonsListComponent implements OnInit {
 
   persons!: Person[];
+  allPersons: Person[] = [];
   selectedPerson!: Person;
 
-  searchText = '';
+  searchTerm = '';
 
   constructor(private personService: PersonService, private router: Router, private primengConfig: PrimeNGConfig, private messageService: MessageService, public dialogService: DialogService) {
   }
@@ -27,7 +28,10 @@ export class PersonsListComponent implements OnInit {
   }
 
   private loadAll() {
-    this.personService.getAll().subscribe(data => this.persons = data);
+    this.personService.getAll().subscribe(data => {
+      this.persons = data; 
+      this.allPersons = this.persons;
+    });
   }
 
   onRowSelect($event: any) {
@@ -37,7 +41,7 @@ export class PersonsListComponent implements OnInit {
   deleteCountry(person: Person) {
     this.personService.delete(person.id).subscribe(() => {
       this.loadAll();
-      this.messageService.add({severity: 'error', summary: 'Success', detail: 'Person deleted'});
+      this.messageService.add({ severity: 'error', summary: 'Success', detail: 'Person deleted' });
     });
   }
 
@@ -46,10 +50,10 @@ export class PersonsListComponent implements OnInit {
     ref.onClose.subscribe((person: Person) => {
       if (person) {
         this.personService.create(person).subscribe(() => {
-          this.messageService.add({severity: 'success', summary: 'Success', detail: 'Person Added'});
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Person Added' });
           window.location.reload();
         }, er => {
-          this.messageService.add({severity: 'error', summary: 'Failure', detail: 'Unable to add Person'});
+          this.messageService.add({ severity: 'error', summary: 'Failure', detail: 'Unable to add Person' });
         });
       }
     });
@@ -60,7 +64,7 @@ export class PersonsListComponent implements OnInit {
     ref.onClose.subscribe((person: Person) => {
       if (person) {
         this.personService.update(person.id, person).subscribe(() => {
-          this.messageService.add({severity: 'success', summary: 'Success', detail: 'Person updated'});
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Person updated' });
         });
       }
     });
@@ -68,15 +72,22 @@ export class PersonsListComponent implements OnInit {
 
   openModal(person: Person, header: string): DynamicDialogRef {
     return this.dialogService.open(PersonFormComponent, {
-      data: {person},
+      data: { person },
       header,
-      contentStyle: {'max-height': '500px', 'overflow': 'auto'},
+      contentStyle: { 'max-height': '500px', 'overflow': 'auto' },
       baseZIndex: 10000
     });
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-}
+  }
+
+  search(value: string): void {
+    this.persons = this.allPersons.filter((val) =>
+      val.email.toLowerCase().includes(value)
+
+    );
+  }
 
 }
