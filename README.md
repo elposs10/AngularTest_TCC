@@ -1,10 +1,17 @@
 # TccPersonsMgmtApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.0.
+## Packages installing
+
+Run `npm install` to install all the needed packages for this project.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+## Server starting
+
+Run `npx json-server --watch .\server\persons.json` to start the server with mock data.
 
 ## Code scaffolding
 
